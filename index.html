@@ -90,7 +90,7 @@ body { margin: 0; overflow: hidden; background: radial-gradient(#001233, #002855
   position:absolute;
   top:100%;
   left:0%;
-  width:960px;
+  width:100%;
   max-height:300px;
   overflow-y:auto;
   
@@ -188,7 +188,11 @@ window.addEventListener('click', (event) => {
     }
 });
 
-
+window.addEventListener('resize',()=>{
+  camera.aspect=window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth,window.innerHeight);
+  });
 function focusByIndex(index) {
     const starPos = new THREE.Vector3();
     starPos.fromBufferAttribute(geometry.attributes.position, index);
