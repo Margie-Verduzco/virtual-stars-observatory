@@ -196,12 +196,27 @@ const tooltip = document.getElementById('tooltip');
 
 let starField, geometry, stars = [], originalSizes = [], originalColors = [];
 
+function updateMouseCoords(x, y) {
+    mouse.x = (x / window.innerWidth) * 2 - 1;
+    mouse.y = -(y / window.innerHeight) * 2 + 1;
+    mouseScreen.x = x;
+    mouseScreen.y = y;
+}
+
 window.addEventListener('mousemove', (event) => {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-    mouseScreen.x = event.clientX;
-    mouseScreen.y = event.clientY;
+    updateMouseCoords(event.clientX, event.clientY);
 });
+
+window.addEventListener('touchstart', (event) => {
+    if (event.touches.length > 0) {
+        updateMouseCoords(event.touches[0].clientX, event.touches[0].clientY);
+    }
+}, { passive: true });
+
+window.addEventListener('touchstart', (event) => {
+    const touch = event.touches[0];
+    updateMouseCoords(touch.clientX, touch.clientY);
+}, { passive: false });
 
 window.addEventListener('click', (event) => {
     if ((event.ctrlKey || event.metaKey) && starField) {
