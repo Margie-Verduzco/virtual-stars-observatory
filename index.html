@@ -6,7 +6,7 @@
 <title>HYG Stellar Map</title> 
 <style> 
 body { margin: 0;overflow: hidden; background: radial-gradient(#001233, #002855);width: 100vw; height:100vh;}
-canvas{ display: block; width:100% !important; height:100% !important;}
+canvas{ position:fixed;top:0;left:0;}
 #tooltip {
   position: absolute;
   pointer-events: none;
@@ -164,7 +164,7 @@ renderer.domElement.style.display="block";
 document.body.appendChild(renderer.domElement);
 function ResizeRenderer(){
   const width=document.documentElement.ClientWidth;
-  const height=document.documentElement.ClientHidth;
+  const height=document.documentElement.ClientHeight;
 
 }
 const raycaster=new THREE.Raycaster();
