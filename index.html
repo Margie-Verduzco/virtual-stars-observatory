@@ -425,7 +425,7 @@ if (isSun) {
             
             tooltip.innerHTML = `
                <div style="font-size:35px; font-weight:600; margin-bottom:6px;">${starData.proper || 'Unknown Star'}</div>
-                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(180, 210, 230, 0.55);">Magnitude:</span><span>${starData.mag ?? '-'}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:rgba(180, 210, 230, 0.55);">Magnitude:</span><span>${(starData.mag ??0).toFixed(2)}</span></div>
                 <div style="display:flex; justify-content:space-between;"><span style="color:rgba(180, 210, 230, 0.55);">Distance (light years): </span><span>${starData.dist ? (starData.dist * 3.26).toFixed(1) : '-'}</span></div>
                 <div style="display:flex; justify-content:space-between;"><span style="color:rgba(180, 210, 230, 0.55);">RA:</span><span>${starData.ra || '-'}</span></div>
                 <div style="display:flex; justify-content:space-between;"><span style="color:rgba(180, 210, 230, 0.55);">Dec:</span><span>${starData.dec || '-'}</span></div>
