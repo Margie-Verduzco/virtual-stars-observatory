@@ -88,20 +88,24 @@ canvas{ position:fixed;top:0;left:0;}
   font-size: 16px;
   font-weight: 600;
 }
+  
 @media (min-width: 768px){
   #topbar{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
   }
+
   #title{
     font-size: 28px;
     text-align: left;
   }
+
   #searchBox{
     max-width: 420px;
   }
 }
+  
 #suggestions{
   position:absolute;
   top:100%;
@@ -210,26 +214,7 @@ window.addEventListener('click', (event) => {
         }
     }
 });
-window.addEventListener('touchstart', (event) => {
-    // solo en pantallas pequeñas
-    if (window.innerWidth > 768) return;
-    if (!starField) return;
 
-    const touch = event.touches[0];
-
-    mouse.x = (touch.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(touch.clientY / window.innerHeight) * 2 + 1;
-
-    raycaster.setFromCamera(mouse, camera);
-    raycaster.params.Points.threshold = 0.08;
-
-    const intersects = raycaster.intersectObject(starField);
-
-    if (intersects.length > 0) {
-        const index = intersects[0].index;
-        showTooltipMobile(index);
-    }
-});
 window.addEventListener('resize',()=>{
   camera.aspect=window.innerWidth/window.innerHeight;
   camera.updateProjectionMatrix();
@@ -243,40 +228,7 @@ function focusByIndex(index) {
     targetCameraPos.copy(starPos).add(direction.multiplyScalar(1.2)); 
     isMoving = true;
 }
-function showTooltipMobile(index){
-    const starData = stars[index];
 
-    const temp = ciToTemperature(starData.ci);
-    const tNorm = Math.min(1, Math.max(0, (temp - 2000) / 8000));
-    const positionPercent = (1-tNorm) * 100;
-
-    tooltip.style.display = 'block';
-
-    tooltip.style.left = '50%';
-    tooltip.style.bottom = '20px';
-    tooltip.style.top = 'auto';
-    tooltip.style.transform = 'translateX(-50%)';
-
-    tooltip.innerHTML = `
-        <div style="font-size:20px; font-weight:600;">
-            ${starData.proper || 'Unknown Star'}
-        </div>
-
-        <div>Magnitude: ${(starData.mag ??0).toFixed(2)}</div>
-        <div>Distance: ${starData.dist ? (starData.dist * 3.26).toFixed(1) : '-'}</div>
-
-        <div style="margin-top:8px; height:8px; border-radius:6px;
-        background: linear-gradient(to right,#3b4cc0,#9bbcff,#ffffff,#ffb56b,#ff3b1f);">
-            <div style="
-                position:relative;
-                left:${positionPercent}%;
-                width:4px;
-                height:12px;
-                background:#000;
-            "></div>
-        </div>
-    `;
-}
 
 function focusStarByName(name) {
     if (!stars || !geometry) return;
